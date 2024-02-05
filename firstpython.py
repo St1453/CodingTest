@@ -2,6 +2,7 @@
 
 print("New python File")
 
-a=1
+a=5
 
-print(a)
+for i in range(a):
+  print(a)
