@@ -3,16 +3,18 @@ Source : https://school.programmers.co.kr/learn/courses/30/lessons/148652
 '''
 
 
-def solution(n):
-    contour=list('11011')
-    result=''
-    for j in range(len(contour)):
-        if contour[j]=='1':
-            contour[j]='11011'
-        else:
-            contour[j]='00000'
-    for i in contour:
-        result+=i
-    contour=result
+def solution(n,l,r):
+    contour='1'
+    for a in range(n):
+        contour=list(contour)
+        result=''
+        for j in range(len(contour)):
+            if contour[j]=='1':
+                contour[j]='11011'
+            else:
+                contour[j]='00000'
+        for i in contour:
+            result+=i
+        contour=result
     print(contour)
-    print(result)
+    print(contour.count('1',l-1,r))
