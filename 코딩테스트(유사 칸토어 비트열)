@@ -3,18 +3,18 @@ Source : https://school.programmers.co.kr/learn/courses/30/lessons/148652
 '''
 
 
+def recur(n,index):
+    if n==1:
+        return '11011'[:index].count('1')
+    quotient,remainder=divmod(index,5**(n-1))
+    count_of_one=0
+    if quotient<=1:
+        count_of_one=4**(n-1)*quotient+recur(n-1,remainder)
+    if quotient==2:
+        count_of_one=4**(n-1)*2
+    if quotient>2:
+        count_of_one=4**(n-1)*(quotient-1)+recur(n-1,remainder)
+    return count_of_one
+
 def solution(n,l,r):
-    contour='1'
-    for a in range(n):
-        contour=list(contour)
-        result=''
-        for j in range(len(contour)):
-            if contour[j]=='1':
-                contour[j]='11011'
-            else:
-                contour[j]='00000'
-        for i in contour:
-            result+=i
-        contour=result
-    print(contour)
-    print(contour.count('1',l-1,r))
+    return recur(n,r)-recur(n,l-1)
