@@ -1,0 +1,46 @@
+
+from PIL import Image
+import os
+
+def slice_image(image_path, output_folder):
+    # Open the original image
+    with Image.open(image_path) as img:
+        img_width, img_height = img.size
+
+        # Calculate slice dimensions
+        slice_width = img_width // 6
+        slice_height = img_height // 2
+
+        # Number of slices
+        num_slices_x = img_width // slice_width
+        num_slices_y = img_height // slice_height
+
+        # Create output folder if it doesn't exist
+        if not os.path.exists(output_folder):
+            os.makedirs(output_folder)
+
+        slice_index = 0
+        for y in range(num_slices_y):
+            for x in range(num_slices_x):
+                left = x * slice_width
+                upper = y * slice_height
+                right = left + slice_width
+                lower = upper + slice_height
+
+                # Crop the image to the slice dimensions
+                img_slice = img.crop((left, upper, right, lower))
+
+                # Save the cropped slice
+                slice_filename = os.path.join(output_folder, f'slice_{slice_index}.png')
+                img_slice.save(slice_filename)
+                print(f'Saved: {slice_filename}')
+                slice_index += 1
+
+if __name__ == "__main__":
+    # Input parameters
+    input_image_path = 'C:/Users/MG/Projects/Images/origin.png'  # Replace with the path to your image
+    output_directory = 'C:/Users/MG/Projects/Images/cuts'
+
+    slice_image(input_image_path, output_directory)
+
+
